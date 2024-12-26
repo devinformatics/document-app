@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Table, Input, message, Spin } from "antd";
-import Header from './Header';
-import Footer from './Footer';
+import Header from './Header.jsx';
+import Footer from './Footer.jsx';
 const { Search } = Input;
 
 
