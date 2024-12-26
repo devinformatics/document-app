@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Table, Input, message, Spin } from "antd";
-
+import Header from './Header';
+import Footer from './Footer';
 const { Search } = Input;
+
+
 
 const App = () => {
     const [data, setData] = useState([]);
@@ -41,18 +44,23 @@ const App = () => {
         { title: "Application No", dataIndex: "applicationNO", sorter: (a, b) => a.applicationNO - b.applicationNO },
         { title: "Applicant Name", dataIndex: "applicantName",sorter: (a, b) => a.applicantName.localeCompare(b.applicantName) },
         { title: "Application Date", dataIndex: "applicationDate",sorter: (a, b) => a.applicationDate.localeCompare(b.applicationDate) },
-        { title: "Student ID", dataIndex: "studentID" },
+        { title: "Student ID", dataIndex: "studentID", responsive: ['md'] },
         { title: "Paid Amount", dataIndex: "paidAmount" },
-        { title: "Status (English)", dataIndex: "status_En" },
-        { title: "Status (Arabic)", dataIndex: "status_Ar" },
-        { title: "Last Updated", dataIndex: "lastDate" },
+        { title: "Status (English)", dataIndex: "status_En", responsive: ['md'] },
+        { title: "Status (Arabic)", dataIndex: "status_Ar", responsive: ['md'] },
+        { title: "Last Updated", dataIndex: "lastDate", responsive: ['md'] },
     ];
 
     return (
-        <div>
-            <Search placeholder="Search by name, status, or ID" onSearch={handleSearch} style={{ marginBottom: 20 }} />
-            {loading ? <Spin /> : <Table pagination={{ defaultPageSize: 10, showSizeChanger: true, pageSizeOptions: ['10', '20', '30']}} columns={columns} dataSource={filteredData} rowKey="applicationNO" />}
-        </div>
+	    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}> {/* Added flexbox for sticky footer */}
+		  <Header />
+		  <main style={{ flex: 1, padding: '20px' }}> {/* Added flex: 1 to make main content take up available space */}
+			<Search placeholder="Search by name, status, or ID" onSearch={handleSearch} style={{ marginBottom: 20 }} />
+            {loading ? <Spin /> : <Table  pagination={{ defaultPageSize: 10, showSizeChanger: true, pageSizeOptions: ['10', '20', '30']}} columns={columns} dataSource={filteredData} rowKey="applicationNO" />}
+		  </main>
+		  <Footer />
+		</div>
+        
     );
 };
 
